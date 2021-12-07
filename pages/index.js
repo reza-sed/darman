@@ -1,10 +1,10 @@
 import Head from "next/head";
-import Image from "next/image";
 import Dropdown from "../components/dropdown";
 import { fetchDocs } from "../services/doctors";
-import babyImg from "../images/baby.jpg";
+import DoctorCard from "../components/doctor-card";
 
 export default function Home({ foundDocs }) {
+  const top10 = foundDocs.slice(0, 10);
   return (
     <div className="font-noto">
       <Head>
@@ -94,17 +94,15 @@ export default function Home({ foundDocs }) {
               </span>
             </div>
           </div>
-          <div>
-            <Image
-              src={babyImg}
+          <div className="aspect-w-2 aspect-h-1 my-2 md:my-0">
+            <img
+              className="object-cover shadow-lg"
+              src="/images/baby.jpg"
               alt="baby"
-              width={100}
-              // height={250}
-              layout="responsive"
             />
           </div>
         </div>
-        <div className="mt-10 rounded-md bg-gray-200 p-3">
+        <div className="md:mt-10 rounded-md bg-gray-200 p-3">
           <div className="my-2 hidden md:block border-b border-gray-300">
             {foundDocs?.length} پزشک، با توجه به جستجو شما یافت شد.
           </div>
@@ -156,11 +154,34 @@ export default function Home({ foundDocs }) {
             <Dropdown name="مرتب سازی" />
           </div>
         </div>
-        <div className="md:grid md:grid-cols-3 gap-5 mt-8">
+        <div className="md:grid md:grid-cols-4 gap-5 mt-8">
           <div className="col-span-2">
-            <div className="p-3"></div>
+            {top10.map((d) => (
+              <DoctorCard
+                name={d.Profile.FirstName}
+                levelname={d.Profile.LevelName}
+                fieldname={d.Profile.FieldName}
+                rank={d.Profile.MedicativeRank}
+                comment={d.Profile.MedicativeComment}
+                areaName={d.MedicalCenterList[0].AreaName}
+                address={d.MedicalCenterList[0].Address}
+                voice={d.ConsultInfo.VoiceConsult}
+                voip={d.ConsultInfo.VoipConsult}
+                video={d.ConsultInfo.VideoConsult}
+                availableTime={d.MedicalCenterList[0].FirstAvailableTime}
+                commentsCount={d.Profile.MedicativeCommentCount}
+              />
+            ))}
+            <div className="flex flex-col  justify-center items-center">
+              <button className="border-primary-300 border rounded p-1 w-52 text-primary-300 mt-3 font-bold">
+                نمایش پزشکان بیشتر
+              </button>
+              <span className="text-xs block">
+                {foundDocs.length - top10.length} پزشک دیگر
+              </span>
+            </div>
           </div>
-          <div className="col-span-1"></div>
+          <div className="col-span-2"></div>
         </div>
       </main>
     </div>
