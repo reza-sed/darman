@@ -23,3 +23,11 @@ h4 {
 .badge-score {
   @apply rounded-sm flex justify-around items-center h-4;
 }
+
+.dropdown {
+  @apply h-8 inline-flex w-28 justify-between items-center rounded-md border border-primary-200 shadow-sm px-4 py-2 bg-transparent text-sm font-medium text-primary-200;
+}
+
+.btn {
+  @apply h-8 mr-2 inline-flex w-min justify-between items-center rounded-md border border-primary-200 shadow-sm px-4 py-2 bg-transparent text-sm font-medium text-primary-200;
+}

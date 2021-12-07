@@ -1,5 +1,8 @@
 import Head from "next/head";
+import Image from "next/image";
+import Dropdown from "../components/dropdown";
 import { fetchDocs } from "../services/doctors";
+import babyImg from "../images/baby.jpg";
 
 export default function Home({ foundDocs }) {
   return (
@@ -10,7 +13,7 @@ export default function Home({ foundDocs }) {
 
       <main className="px-5 py-4 text-gray-600">
         <div className="text-xs text-right w-full">
-          <span className="">درمانکده /</span>
+          <span className="">درمانکده / </span>
           <span className="text-primary-300">متخصص اعصاب و روان</span>
         </div>
         <div className="md:grid md:grid-cols-2 gap-5 mt-1">
@@ -24,9 +27,8 @@ export default function Home({ foundDocs }) {
             <div className="mt-16 flex justify-around">
               <span className="flex flex-col items-center w-18 md:w-40">
                 <svg
-                  className="text-primary-400 w-5"
+                  className="text-primary-400 w-6"
                   xmlns="http://www.w3.org/2000/svg"
-                  class="h-6 w-6"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -48,9 +50,8 @@ export default function Home({ foundDocs }) {
               </span>
               <span className="flex flex-col items-center w-18 md:w-40">
                 <svg
-                  className="text-primary-400 w-5"
+                  className="text-primary-400 w-6"
                   xmlns="http://www.w3.org/2000/svg"
-                  class="h-6 w-6"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -71,9 +72,8 @@ export default function Home({ foundDocs }) {
               </span>
               <span className="flex flex-col items-center w-18 md:w-40">
                 <svg
-                  className="text-primary-400 w-5"
+                  className="text-primary-400 w-6"
                   xmlns="http://www.w3.org/2000/svg"
-                  class="h-6 w-6"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -94,10 +94,73 @@ export default function Home({ foundDocs }) {
               </span>
             </div>
           </div>
-          <div className="bg-primary-200"></div>
+          <div>
+            <Image
+              src={babyImg}
+              alt="baby"
+              width={100}
+              // height={250}
+              layout="responsive"
+            />
+          </div>
         </div>
         <div className="mt-10 rounded-md bg-gray-200 p-3">
-          <div>{foundDocs.length} پزشک، با توجه به جستجو شما یافت شد.</div>
+          <div className="my-2 hidden md:block border-b border-gray-300">
+            {foundDocs?.length} پزشک، با توجه به جستجو شما یافت شد.
+          </div>
+          <div className="my-2 md:hidden border-b border-gray-300">
+            {foundDocs?.length}پزشک متخصص پیدا شد
+          </div>
+          <div className="md:flex my-2 items-center justify-between hidden">
+            <span className="flex items-center">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"
+                />
+              </svg>
+              <span>فیلتر کردن:</span>
+              <Dropdown name="نوع ویزیت" />
+              <Dropdown name="زمان ویزیت" />
+              <button className="btn">بیشتر</button>
+            </span>
+            <span className="flex items-center">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M4 6h16M4 12h16m-7 6h7"
+                />
+              </svg>
+              <span>مرتب سازی براساس:</span>
+              <Dropdown name="جدیدترین" />
+            </span>
+          </div>
+          <div className="flex my-2 items-center justify-between md:hidden">
+            <Dropdown name="فیلتر کردن" />
+            <Dropdown name="مرتب سازی" />
+          </div>
+        </div>
+        <div className="md:grid md:grid-cols-3 gap-5 mt-8">
+          <div className="col-span-2">
+            <div className="p-3"></div>
+          </div>
+          <div className="col-span-1"></div>
         </div>
       </main>
     </div>
