@@ -8,3 +8,18 @@ body {
   direction: rtl;
   overflow-x: hidden;
 }
+
+h1,
+h2,
+h3,
+h4 {
+  color: "#011533";
+}
+
+.h1 {
+  @apply font-bold text-2xl;
+}
+
+.badge-score {
+  @apply rounded-sm flex justify-around items-center h-4;
+}
